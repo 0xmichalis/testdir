@@ -1,7 +1,7 @@
 {
-    "name": "alice",
+    "name": "bob",
     "spec": {
         "strategy": "test"
     },
-    "status": "Ready"
+    "status": "Pending"
 }
