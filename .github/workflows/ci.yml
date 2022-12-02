@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2022 Toucan Labs
+#
+# SPDX-License-Identifier: LicenseRef-Proprietary
+
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get changed files
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          list-files: shell
+          filters: |
+            artifacts:
+            - added|modified: 'data/**/*'
+
+      - name: Conditional
+        if: steps.changes.outputs.artifacts == 'true'
+        run: |
+          echo "Tracked artifacts file have changed"
+
+          artifact=${{ steps.changes.outputs.artifacts_files }}
